@@ -23,6 +23,18 @@ pipeline {
                 sh 'docker build -t $CONTAINER_IMAGE .'
             }
         }
+
+        stage('Push Docker Image') {
+            steps {
+                echo 'Pushing Docker Image...'
+                // push docker image to docker hub
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+                    sh 'echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin'
+                    sh 'docker push $CONTAINER_IMAGE'
+                }
+            }
+        }
+
         stage('stop and delete old container') {
             steps {
                 echo 'Stopping and Deleting old container...'
