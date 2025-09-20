@@ -4,7 +4,8 @@ app.get('/', (req, res) => {
     res.json([
         { id: 11, employeeName: 'John Doltan and Moosa Waseim', salary: 2500 },
         { id: 13, employeeName: 'Phillaps Trace', salary: 1400 },
-        { id: 14, employeeName: 'Donald Trumph', salary: 1200 }
+        { id: 14, employeeName: 'Donald Trumph', salary: 1200 },
+        { id: 99, employeeName: 'Muhammad Tanzeem Bhaaati', salary: 2500 },
     ]);
 });
 
