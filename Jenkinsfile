@@ -20,17 +20,18 @@ pipeline {
             steps {
                 echo 'Docker Image Creating...'
                 // create docker image
-                sh 'docker build -t $CONTAINER_IMAGE .'
+                sh 'docker build -t $CONTAINER_IMAGE:latest .'
             }
         }
 
         stage('Push Docker Image') {
             steps {
+                sh 'docker tag $CONTAINER_IMAGE mohsinakhtar/$CONTAINER_IMAGE:latest'
                 echo 'Pushing Docker Image...'
                 // push docker image to docker hub
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
                     sh 'echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin'
-                    sh 'docker push $CONTAINER_IMAGE'
+                    sh 'docker push mohsinakhtar/$CONTAINER_IMAGE:latest'
                 }
             }
         }
