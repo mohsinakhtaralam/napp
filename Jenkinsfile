@@ -35,7 +35,7 @@ pipeline {
             steps {
                 echo 'Starting Container...'
                 // start new container
-                sh 'docker run -d -p $PORT:$PORT --name $CONTAINER_NAME'
+                sh 'docker run -d -p $PORT:$PORT --name $CONTAINER_NAME $CONTAINER_IMAGE'
             }
         }
     }
